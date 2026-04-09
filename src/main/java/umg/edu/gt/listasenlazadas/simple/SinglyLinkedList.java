@@ -137,8 +137,20 @@ public class SinglyLinkedList<T> {
      * @return cantidad de nodos eliminados
      */
     public int clean() {
-        throw new UnsupportedOperationException(
-                "TODO RETO: Implementar clean() en SinglyLinkedList.");
+        int removed = 0;
+        SimpleNode<T> current = head;
+
+        while (current != null) {
+            SimpleNode<T> next = current.getNext();
+            current.setNext(null);
+            current = next;
+            removed++;
+        }
+
+        head = null;
+        tail = null;
+        size = 0;
+        return removed;
     }
 
     /**
@@ -164,8 +176,22 @@ public class SinglyLinkedList<T> {
      * - Lista con varios elementos.
      */
     public void reverseInPlace() {
-        throw new UnsupportedOperationException(
-                "TODO RETO: Implementar reverseInPlace() en SinglyLinkedList.");
+        if (head == null || head.getNext() == null) {
+            return;
+        }
+
+        SimpleNode<T> previous = null;
+        SimpleNode<T> current = head;
+        tail = head;
+
+        while (current != null) {
+            SimpleNode<T> next = current.getNext();
+            current.setNext(previous);
+            previous = current;
+            current = next;
+        }
+
+        head = previous;
     }
 
     /**
@@ -188,8 +214,32 @@ public class SinglyLinkedList<T> {
      * @return cantidad de nodos eliminados por duplicados
      */
     public int removeDuplicates() {
-        throw new UnsupportedOperationException(
-                "TODO RETO: Implementar removeDuplicates() en SinglyLinkedList.");
+        int removed = 0;
+        SimpleNode<T> current = head;
+
+        while (current != null) {
+            SimpleNode<T> runnerPrevious = current;
+            SimpleNode<T> runner = current.getNext();
+
+            while (runner != null) {
+                if (isSameValue(current.getValue(), runner.getValue())) {
+                    runnerPrevious.setNext(runner.getNext());
+                    if (runner == tail) {
+                        tail = runnerPrevious;
+                    }
+                    size--;
+                    removed++;
+                    runner = runnerPrevious.getNext();
+                } else {
+                    runnerPrevious = runner;
+                    runner = runner.getNext();
+                }
+            }
+
+            current = current.getNext();
+        }
+
+        return removed;
     }
 
     @Override
