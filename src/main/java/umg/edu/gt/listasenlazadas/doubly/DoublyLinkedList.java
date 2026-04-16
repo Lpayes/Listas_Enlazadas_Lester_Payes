@@ -113,8 +113,11 @@ public class DoublyLinkedList<T> {
      * @return nodos eliminados
      */
     public int clean() {
-        throw new UnsupportedOperationException(
-                "TODO RETO: Implementar clean() en DoublyLinkedList.");
+    	int removedCount = this.size; // <--- Aquí lo usas
+        while (!isEmpty()) {
+            removeFirst();
+        }
+        return removedCount;
     }
 
     /**
