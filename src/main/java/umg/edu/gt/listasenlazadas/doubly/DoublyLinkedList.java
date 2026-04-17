@@ -125,8 +125,21 @@ public class DoublyLinkedList<T> {
      * Invierte la lista in-place, actualizando enlaces next/previous.
      */
     public void reverseInPlace() {
-        throw new UnsupportedOperationException(
-                "TODO RETO: Implementar reverseInPlace() en DoublyLinkedList.");
+    	if (size <= 1) return;
+
+        DoublyNode<T> current = head;
+        DoublyNode<T> temp = null;
+
+        while (current != null) {
+            temp = current.getPrevious();
+            current.setPrevious(current.getNext());
+            current.setNext(temp);
+            current = current.getPrevious();
+        }
+
+        temp = head;
+        head = tail;
+        tail = temp;
     }
 
     /**
